@@ -33,8 +33,7 @@ static void WriteTaskRunnerFile(string filePath)
 }
 
 var basePath = Directory.GetCurrentDirectory();
-AnsiConsole.Markup("Husky Installer");
-
+AnsiConsole.MarkupLine("Husky Installer...");
 AnsiConsole.MarkupLine($"Working in path [blue]{basePath}[/]");
 
 var gitPath = Path.Combine(basePath, ".git");
@@ -49,10 +48,9 @@ var taskRunnerFilePath = Path.Combine(basePath, ".husky", "task-runner.json");
 
 if (File.Exists(taskRunnerFilePath))
 {
-    AnsiConsole.MarkupLine($"Task runner file at [red]{taskRunnerFilePath}[/] already exists");
+    AnsiConsole.MarkupLine($"Task runner file at [red]{taskRunnerFilePath}[/] already exists. Exiting.");
     return;
 }
-AnsiConsole.MarkupLine($"Task runner file at [blue]{taskRunnerFilePath}[/] does not exist");
 
 RunSetupCommandsInPath(basePath);
 WriteTaskRunnerFile(taskRunnerFilePath);
