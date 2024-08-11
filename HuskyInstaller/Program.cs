@@ -24,7 +24,7 @@ internal class Program
         var gitPath = Path.Combine(basePath, ".git");
 
 
-        if (! Directory.Exists(gitPath))
+        if (!Directory.Exists(gitPath))
         {
             AnsiConsole.MarkupLine($"[red]{gitPath} not found, not a git repo?[/]");
             return;
@@ -57,6 +57,7 @@ internal class Program
             """;
         File.WriteAllText(taskRunnerFile, taskRunnerData.Trim());
 
+        AnsiConsole.MarkupLine($"Written [blue]taskRunnerFile[/]");
         AnsiConsole.MarkupLine("Done");
     }
 }
