@@ -32,9 +32,21 @@ static void WriteTaskRunnerFile(string filePath)
     File.WriteAllText(filePath, taskRunnerData.Trim());
 }
 
-var basePath = Directory.GetCurrentDirectory();
+var basePath = args.Length > 0 ? args[0] : string.Empty;
+
+if (string.IsNullOrWhiteSpace(basePath))
+{
+    basePath = Directory.GetCurrentDirectory();
+}
+
 AnsiConsole.MarkupLine("Husky Installer...");
 AnsiConsole.MarkupLine($"Working in path [blue]{basePath}[/]");
+
+if (!Directory.Exists(basePath))
+{
+    AnsiConsole.MarkupLine($"[red]{basePath} not found[/]");
+    return;
+}
 
 var gitPath = Path.Combine(basePath, ".git");
 
