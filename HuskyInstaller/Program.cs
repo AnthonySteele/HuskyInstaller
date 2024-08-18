@@ -1,11 +1,19 @@
 ﻿using HuskyInstaller;
 using Spectre.Console;
 
-static void RunSetupCommandsInPath(string path)
+static void RunSetupCommandsInPath(string basePath)
 {
-    var runner = new CommandRunner(path);
+    var runner = new CommandRunner(basePath);
 
-    runner.RunCommand("dotnet new tool-manifest");
+    if (File.Exists(Path.Combine(basePath, ".config", "dotnet-tools.json")))
+    {
+        AnsiConsole.MarkupLine("dotnet tools manifest already exists");
+    }
+    else
+    {
+        runner.RunCommand("dotnet new tool-manifest");
+    }
+
     runner.RunCommand("dotnet tool install husky");
     runner.RunCommand("dotnet tool restore");
     runner.RunCommand("dotnet husky install");
